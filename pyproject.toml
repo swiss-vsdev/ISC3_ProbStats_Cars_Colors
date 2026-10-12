@@ -1,0 +1,20 @@
+[project]
+name = "isc3-probstats-cars-colors"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Gabriel", email = "gabriel@ik.me" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "autoscout24-scraper>=0.2.0",
+    "pillow>=12.3.0",
+]
+
+[project.scripts]
+isc3-probstats-cars-colors = "isc3_probstats_cars_colors:main"
+
+[build-system]
+requires = ["uv_build>=0.12.21,<0.13.0"]
+build-backend = "uv_build"
