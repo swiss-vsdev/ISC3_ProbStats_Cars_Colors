@@ -28,21 +28,32 @@ PALETTE = {
 }
 
 
-def get_most_present_color(image_path):
+def get_most_present_color(image_path:Path):
     img = Image.open(image_path).convert("RGB")
     width, height = img.size
     zone = (width // 4, height // 4, width * 3 // 4, height * 3 // 4)
     img = img.crop(zone)
 
     color = dominant_color(img)
-    print("Dominant color in the middle 50%:", color)
-    return f"{image_path};{color};0,0,0"
+    c_color = closest_color(color)
+    print("Dominant color in the middle 50%:", c_color)
+    return f"{image_path};{c_color};{color}"
 
 
-def dominant_color(image:Image):
-    return "black"
+def dominant_color(img:Image):
+    colors = img.getcolors(maxcolors=img.width * img.height)
+    count, rgb = max(colors)
+    return rgb
 
 
+def closest_color(rgb:tuple[int, int, int], palette:dict = PALETTE) -> str:
+    r, g, b = rgb
+    return min(
+        palette,
+        key=lambda name: (palette[name][0] - r) ** 2
+                       + (palette[name][1] - g) ** 2
+                       + (palette[name][2] - b) ** 2,
+    )
 
 
 def main():
