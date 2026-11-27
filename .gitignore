@@ -221,4 +221,4 @@ __marimo__/
 
 
 .venv/
-uv.lock
+*.lock
