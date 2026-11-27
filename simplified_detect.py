@@ -5,7 +5,7 @@ import csv
 
 IMAGES_DIR = Path("/Volumes/Seagate/autoscout24_images/1998")
 OUTPUT_CSV = Path("resultats_simple.csv")
-COLONNES = ["image", "couleur", "rgb"]
+COLONNES = ["image", "annee", "couleur", "rgb"]
 
 PALETTE = {
     "black":       (20, 20, 20),
@@ -36,9 +36,14 @@ def get_most_present_color(image_path:Path):
 
     color = dominant_color(img)
     c_color = closest_color(color)
+    y = get_year(image_path)
     print("Dominant color in the middle 50%:", c_color)
-    return f"{image_path};{c_color};{color}"
+    return f"{image_path};{y};{c_color};{color}"
 
+
+def get_year(image_path: Path):
+    annee = image_path.name[:4]
+    return annee
 
 def dominant_color(img:Image):
     colors = img.getcolors(maxcolors=img.width * img.height)
